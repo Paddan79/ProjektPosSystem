@@ -1,5 +1,4 @@
-package se.kth.iv1350.pocesSale.Startupp;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Util;
+package se.kth.iv1350.pocesSale.startupp;
 
 import java.lang.*;
 import java.util.*;
@@ -14,7 +13,6 @@ public class Main {
         System.out.println(t);
 
         s.close();
-
 
 
     }
