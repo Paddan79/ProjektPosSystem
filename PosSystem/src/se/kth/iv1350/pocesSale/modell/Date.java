@@ -2,11 +2,13 @@ package se.kth.iv1350.pocesSale.modell;
 
 public class Date {
 
-    public String getDate(){
+    //Bryts ut till eget paket
+
+    public static String getDate(){
         return "2019-04-26";
     }
 
-    public String getTime(){
+    public static String getTime(){
         return "22:50";
     }
 }

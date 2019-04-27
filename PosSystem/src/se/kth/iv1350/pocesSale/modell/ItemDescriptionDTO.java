@@ -15,6 +15,22 @@ public class ItemDescriptionDTO {
         this.netPrice = netPrice;
     }
 
+    /**
+     * Converts ItemDTO to presentation format
+     *
+     */
+
+    @Override
+    public String toString(){
+        StringBuilder itemPresentation = new StringBuilder();
+        itemPresentation.append("Vara " + name);
+        itemPresentation.append(" Eankod " + id);
+        itemPresentation.append(" Moms " + vat);
+        itemPresentation.append(" Beskrivning " + description);
+        itemPresentation.append(" Pris " + netPrice);
+        return itemPresentation.toString();
+    }
+
 
 
 

@@ -1,18 +1,24 @@
 package se.kth.iv1350.pocesSale.startupp;
 
-import java.lang.*;
-import java.util.*;
+import se.kth.iv1350.pocesSale.controller.Controller;
+import se.kth.iv1350.pocesSale.integration.IntegrationCreator;
+import se.kth.iv1350.pocesSale.integration.Printer;
+import se.kth.iv1350.pocesSale.view.View;
+
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
-        System.out.println("hej");
-        Scanner s = new Scanner(System.in);
 
-        String t = s.next();
-        System.out.println(t);
+        /**
+         * Contains the <code>main</code> method. Performs all startup of the applications
+         */
 
-        s.close();
+        IntegrationCreator creator = new IntegrationCreator();
+        Printer printer = new Printer();
+        Controller controller = new Controller(creator,printer);
+        new View(controller).sampleExecution();
+
 
 
     }
