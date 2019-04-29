@@ -5,6 +5,7 @@ import se.kth.iv1350.pocesSale.integration.ItemRegistry;
 import se.kth.iv1350.pocesSale.integration.Printer;
 import se.kth.iv1350.pocesSale.integration.StoreRegistry;
 import se.kth.iv1350.pocesSale.modell.ItemDescriptionDTO;
+import se.kth.iv1350.pocesSale.modell.Receipt;
 import se.kth.iv1350.pocesSale.modell.Sale;
 
 public class Controller {
@@ -32,16 +33,16 @@ public class Controller {
        System.out.println(quantity);
 
         sale.addItem(itemInfo, quantity);
-
-        // Logik för running Total
-
         return sale;
 
     }
 
 
 
-    public void pay(double recievedAmount){
+    public double pay(double recievedAmount){
+        Receipt receipt = sale.paid(recievedAmount ,sale);
+        printer.printReciept(receipt);
+        return receipt.giveMeChange();
 
     }
 
@@ -49,9 +50,7 @@ public class Controller {
         return sale.giveMeTotal();
 
     }
-    public void requestDiscount(int customerId){
 
-    }
 
 
 

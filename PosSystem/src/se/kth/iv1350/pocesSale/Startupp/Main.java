@@ -5,6 +5,9 @@ import se.kth.iv1350.pocesSale.integration.IntegrationCreator;
 import se.kth.iv1350.pocesSale.integration.Printer;
 import se.kth.iv1350.pocesSale.view.View;
 
+/**
+ * The class that Inisiates the whole program.
+ */
 
 public class Main {
 

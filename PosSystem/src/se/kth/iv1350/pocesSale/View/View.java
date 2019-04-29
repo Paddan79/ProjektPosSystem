@@ -23,6 +23,8 @@ public class View {
      * Simulates a user inputs that generates calls to all system operations
      */
 
+
+
     public void sampleExecution() {
         // Cola apple cola pay,
 
@@ -39,9 +41,15 @@ public class View {
 
         System.out.println(contr.giveMeTotal());
 
+        System.out.println("\nDetta presenteras på skärmen (pengar tillbaka till kunden): " + contr.pay(400));
+
+
+
 
 
     }
+
+
 
 
 }
