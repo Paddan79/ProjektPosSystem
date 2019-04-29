@@ -65,5 +65,14 @@ public class Item {
         return item.id;
     }
 
+    /**
+     * Give me the quantity just for test purposes
+     */
+
+    public int getQuantity(){
+        return quantity;
+    }
+
+
 
 }

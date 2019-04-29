@@ -17,7 +17,7 @@ public class InventorySystem {
     }
 
     /**
-     * An method for seeing
+     * An method to tell if the thing have been logged.
      * @param record
      */
 

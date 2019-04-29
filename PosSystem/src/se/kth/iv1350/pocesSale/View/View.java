@@ -4,6 +4,10 @@ import se.kth.iv1350.pocesSale.controller.Controller;
 import se.kth.iv1350.pocesSale.modell.ItemDescriptionDTO;
 import se.kth.iv1350.pocesSale.modell.Sale;
 
+/**
+ * Fake GUI, Hardcoded programCalls
+ */
+
 public class View {
 
     private Controller contr;
@@ -26,8 +30,6 @@ public class View {
 
 
     public void sampleExecution() {
-        // Cola apple cola pay,
-
         System.out.println("Let's start shopping");
         Sale sale = contr.startSale();
         System.out.println(sale);
@@ -42,14 +44,6 @@ public class View {
         System.out.println(contr.giveMeTotal());
 
         System.out.println("\nDetta presenteras på skärmen (pengar tillbaka till kunden): " + contr.pay(400));
-
-
-
-
-
+        System.out.println("Start a new sale!");
     }
-
-
-
-
 }

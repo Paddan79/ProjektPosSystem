@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CashRegisterTest {
 
     private CashRegister cRZero;
-    private CashRegister cRFour;
+
 
     @BeforeEach
     void setUp() {

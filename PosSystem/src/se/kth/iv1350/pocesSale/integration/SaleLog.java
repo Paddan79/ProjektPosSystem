@@ -28,7 +28,6 @@ public class SaleLog {
     public void logSale(Sale record){
         this.record = record;
         testLog(record);
-
     }
 
     /**

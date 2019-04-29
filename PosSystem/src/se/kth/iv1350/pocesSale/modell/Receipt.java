@@ -1,31 +1,41 @@
 package se.kth.iv1350.pocesSale.modell;
 
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+
+/**
+ * Handles the format of the receipt.
+ */
 
 public class Receipt extends Sale {
 
     private Sale sale;
-    private LocalDateTime endSaleTime;
+
     private DateTimeFormatter formatDateAndTime = DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm:ss");
     private String formattedDateAndTime;
 
-
+    /**
+     * Contructor Manipulate Sales cunstructor.
+     * @param endSale - Sale object for paid sale
+     */
     public Receipt(Sale endSale){
         sale = endSale;
-        formattedDateAndTime = endSale.saleTime.format(formatDateAndTime);
-        endSaleTime = LocalDateTime.now();
+        formattedDateAndTime = endSale.saleDateTime.format(formatDateAndTime);
     }
+
+    /**
+     * Returnes the change.
+     * @return change amount.
+     */
 
     public double giveMeChange(){
         return Math.round(sale.changeAmount);
     }
 
 
-
+    /**
+     * Creates the layout of the receipt.
+     * @return The string presentation of the receipt.
+     */
 
     @Override
     public String toString(){
@@ -35,9 +45,6 @@ public class Receipt extends Sale {
         recieptPresentation.append(formattedDateAndTime+"\n\n");
         recieptPresentation.append(sale.toString());
         recieptPresentation.append("\n--- END OF RECEIPT---");
-
-
         return recieptPresentation.toString();
-
     }
 }

@@ -22,7 +22,7 @@ public class Sale {
     static final int NUMBER_OF_DECIMALS = 100;
 
 
-    LocalDateTime saleTime;
+    LocalDateTime saleDateTime;
     protected String storeName;
     protected String storeAdress;
     protected List<Item> shopingCart = new ArrayList<Item>();
@@ -32,7 +32,9 @@ public class Sale {
     protected double recivedAmount;
     protected double changeAmount;
 
-
+    /**
+     * Empty constructor of Sale
+     */
 
     public Sale(){
 
@@ -44,15 +46,21 @@ public class Sale {
 
 
     public Sale(StoreRegistry storeInfo){
-       saleTime = LocalDateTime.now();
+       saleDateTime = LocalDateTime.now();
        this.storeName = storeInfo.getStoreName();
        this.storeAdress = storeInfo.getStoreAdress();
-       //Utskrift i Test syfte
+       //PrintOut  for Test purposes.
        System.out.println(storeName);
        System.out.println(storeAdress);
-       System.out.println(saleTime);
+       System.out.println(saleDateTime);
     }
 
+    /**
+     * Adds an item to the shopping cart with the given quantity or
+     * if the item already exists, it adds the quantity to that of the existing item in the shopping cart.
+     * @param itemInfo - needed information about the item
+     * @param quantity - the quantity of items registered at one time
+     */
     public void addItem(ItemDescriptionDTO itemInfo, int quantity){
         boolean itemExists = false;
         if (shopingCart.isEmpty()){
@@ -100,11 +108,11 @@ public class Sale {
     /**
      * Method to Add an item to the Sale list
      *
-     * @param itemInfo - ItemDescriptionDTO
-     * @param quantity - How manny the people
+     * @param itemInfo - ItemDescriptionDTO - information about the item
+     * @param quantity - the quantity of items registered at one time
      */
 
-    public void addToList(ItemDescriptionDTO itemInfo, int quantity){
+    private void addToList(ItemDescriptionDTO itemInfo, int quantity){
         Item itemCreate = new Item( itemInfo , quantity);
         shopingCart.add(itemCreate);
     }
@@ -112,9 +120,9 @@ public class Sale {
     /**
      * Calculates runningTotal when adding an item
      *
-     * @param itemInfo -
-     * @param quantity
-     * @return runningTotal
+     * @param itemInfo -  ItemDescriptionDTO - information about the item
+     * @param quantity - the quantity of items registered at one time
+     * @return runningTotal - the total price including VAT for the items already registered
      */
 
     private double calculateRunningTotal(ItemDescriptionDTO itemInfo, int quantity){
@@ -127,9 +135,9 @@ public class Sale {
     /**
      * Calculates vatAmount when adding an item, also needed when calculate runningTotal.
      *
-     * @param itemInfo
-     * @param quantity
-     * @return vatAmount
+     * @param itemInfo - ItemDescriptionDTO - information about the item
+     * @param quantity - the quantity of items registered at one time
+     * @return vatAmount - tax to be paid for the added item
      */
 
     private double vatCalculate(ItemDescriptionDTO itemInfo, int quantity){
@@ -146,8 +154,8 @@ public class Sale {
     /**
      * When the customer have paid
      *
-     * @param recivedAmount
-     * @param sale
+     * @param recivedAmount - amoount of money recieved from the customer
+     * @param sale - Object containing information about the whole sale
      * @return Reciept information
      */
 
@@ -162,11 +170,6 @@ public class Sale {
         return new Receipt(sale);
     }
 
-    /**
-     * Cleaning up the presentation
-     * @param roundNumber
-     * @return RoundedAmounts
-     */
 
     private double roundToTwoDecimals(double roundNumber){
         return Math.round(roundNumber * NUMBER_OF_DECIMALS) / NUMBER_OF_DECIMALS;
