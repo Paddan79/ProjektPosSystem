@@ -1,4 +1,4 @@
-package se.kth.iv1350.pocesSale.Test;
+package se.kth.iv1350.pocesSale.startupp;
 
 import org.junit.jupiter.api.Test;
 import se.kth.iv1350.pocesSale.startupp.Main;

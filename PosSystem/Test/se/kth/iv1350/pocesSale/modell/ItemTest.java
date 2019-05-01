@@ -1,4 +1,4 @@
-package TestAllTests;
+package se.kth.iv1350.pocesSale.modell;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

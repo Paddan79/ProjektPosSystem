@@ -1,4 +1,4 @@
-package se.kth.iv1350.pocesSale.Test;
+package se.kth.iv1350.pocesSale.integration;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
