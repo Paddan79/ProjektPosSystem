@@ -1,8 +1,16 @@
 package se.kth.iv1350.pocesSale.view;
 
+import com.sun.xml.internal.ws.handler.HandlerException;
+import se.kth.iv1350.pocesSale.LogHandler.LogHandler;
 import se.kth.iv1350.pocesSale.controller.Controller;
+import se.kth.iv1350.pocesSale.controller.OperationFailedEceptions;
+import se.kth.iv1350.pocesSale.integration.ItemMissingException;
+import se.kth.iv1350.pocesSale.integration.ItemRegistry;
 import se.kth.iv1350.pocesSale.modell.ItemDescriptionDTO;
+import se.kth.iv1350.pocesSale.modell.PaymentObserver;
 import se.kth.iv1350.pocesSale.modell.Sale;
+
+import java.io.IOException;
 
 /**
  * Fake GUI, Hardcoded programCalls
@@ -11,6 +19,9 @@ import se.kth.iv1350.pocesSale.modell.Sale;
 public class View {
 
     private Controller contr;
+    private ErrorMessageHandler errorMessageHandler = new ErrorMessageHandler();
+    private LogHandler logger;
+
 
     /**
      * Creates a new instance
@@ -19,8 +30,10 @@ public class View {
      *
      */
 
-    public View(Controller contr){
+    public View(Controller contr) throws IOException {
         this.contr = contr;
+        contr.addPaymentObserver(new TotalRevenueView());
+        this.logger = new LogHandler();
     }
 
     /**
@@ -32,18 +45,62 @@ public class View {
     public void sampleExecution() {
         System.out.println("Let's start shopping");
         Sale sale = contr.startSale();
-        System.out.println(sale);
 
-        Sale itemInfo = contr.registerItem(1,6);
-        System.out.println( "Varukog efter vara 1 \n" +itemInfo);
-        contr.registerItem(1,3);
-        System.out.println("Varukorg efter vara 2 \n"+itemInfo);
-        contr.registerItem(2,1);
-        System.out.println( "Varukorg efter vara 3 \n"+itemInfo);
 
+        try {
+            Sale itemInfo = contr.registerItem(1, 6);
+            contr.registerItem(1, 3);
+            contr.registerItem(2, 1);
+            System.out.println("Varukorg efter vara 3 \n" + itemInfo);
+            contr.registerItem(7, 1);
+
+        }
+        catch (ItemMissingException exc){
+            errorMessageHandler.showErrorMsg(exc.getMessage());
+        }
+        catch (OperationFailedEceptions exc){
+            errorMessageHandler.showErrorMsg("Databes failed to work");
+        }
+
+        try {
+            contr.registerItem(99,1);
+        }
+        catch (OperationFailedEceptions exc){
+            handleException("Correct: Databes failed to work",exc);
+        }
+        catch (ItemMissingException exc){
+            handleException("Item not found \n" ,exc);
+        }
         System.out.println(contr.giveMeTotal());
+
 
         System.out.println("\nDetta presenteras på skärmen (pengar tillbaka till kunden): " + contr.pay(400));
         System.out.println("Start a new sale!");
+
+
+
+        try {
+            contr.startSale();
+            contr.registerItem(1,2);
+            Sale itemInfo2 = contr.registerItem(1, 3);
+            System.out.println("Varukorg efter vara 3 \n" + itemInfo2);
+        }
+        catch (ItemMissingException exc){
+            errorMessageHandler.showErrorMsg(exc.getMessage());
+        }
+        catch (OperationFailedEceptions exc){
+            errorMessageHandler.showErrorMsg("Databes failed to work");
+        }
+
+        contr.pay(300);
+
+
+
     }
+
+    private void handleException(String uiMsg, Exception exc) {
+        errorMessageHandler.showErrorMsg(uiMsg);
+        logger.logException(exc);
+    }
+
 }

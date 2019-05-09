@@ -5,6 +5,8 @@ import se.kth.iv1350.pocesSale.integration.IntegrationCreator;
 import se.kth.iv1350.pocesSale.integration.Printer;
 import se.kth.iv1350.pocesSale.view.View;
 
+import java.io.IOException;
+
 /**
  * The class that Inisiates the whole program.
  */
@@ -16,10 +18,17 @@ public class Main {
      */
 
     public static void main(String[] args) {
+        try {
 
-        IntegrationCreator creator = new IntegrationCreator();
-        Printer printer = new Printer();
-        Controller controller = new Controller(creator,printer);
-        new View(controller).sampleExecution();
+
+            IntegrationCreator creator = new IntegrationCreator();
+            Printer printer = new Printer();
+            Controller controller = new Controller(creator, printer);
+            new View(controller).sampleExecution();
+        }
+        catch (IOException ioEx){
+            System.out.println("Unable to start the application");
+            ioEx.printStackTrace();
+        }
     }
 }

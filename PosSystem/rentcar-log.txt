@@ -1,0 +1,9 @@
+2019-maj-07 19:47:44, Exception was thrown: Could not read itemRegistry 
+se.kth.iv1350.pocesSale.controller.OperationFailedEceptions: Could not read itemRegistry 
+	at se.kth.iv1350.pocesSale.controller.Controller.registerItem(Controller.java:63)
+	at se.kth.iv1350.pocesSale.view.View.sampleExecution(View.java:67)
+	at se.kth.iv1350.pocesSale.startupp.Main.main(Main.java:27)
+Caused by: se.kth.iv1350.pocesSale.integration.ItemRegistryExceptions: When registerd item id 99 database crashed
+	at se.kth.iv1350.pocesSale.integration.ItemRegistry.getItem(ItemRegistry.java:36)
+	at se.kth.iv1350.pocesSale.controller.Controller.registerItem(Controller.java:57)
+	... 2 more

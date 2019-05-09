@@ -10,7 +10,7 @@ public class CashRegister {
 
     /**
      * this is a empty parameter cunstructor, but since the system dont have a GUI, where the cashier enters
-     * the amount of money in the cash register, i have an entered 100 SEK in the balance.
+     * the amount of money in the cash register, I have an entered 100 SEK in the balance.
      */
 
     public CashRegister(){

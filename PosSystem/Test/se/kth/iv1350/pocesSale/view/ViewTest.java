@@ -10,6 +10,7 @@ import se.kth.iv1350.pocesSale.integration.Printer;
 import se.kth.iv1350.pocesSale.view.View;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,15 +23,21 @@ class ViewTest {
 
     @BeforeEach
     public void setUp() {
-        IntegrationCreator intCreate = new IntegrationCreator();
-        Controller contr = new Controller(intCreate,new Printer());
-        instance = new View(contr);
 
-        printout = new ByteArrayOutputStream();
+        try {
+            IntegrationCreator intCreate = new IntegrationCreator();
+            Controller contr = new Controller(intCreate, new Printer());
+            instance = new View(contr);
 
-        PrintStream inMemSysOut = new PrintStream(printout);
-        originalSysOut = System.out;
-        System.setOut(inMemSysOut);
+            printout = new ByteArrayOutputStream();
+
+            PrintStream inMemSysOut = new PrintStream(printout);
+            originalSysOut = System.out;
+            System.setOut(inMemSysOut);
+        }
+        catch (IOException ioEx){
+            System.out.println("gick ej att starta");
+        }
     }
 
     @AfterEach

@@ -1,12 +1,12 @@
 package se.kth.iv1350.pocesSale.controller;
 
-import se.kth.iv1350.pocesSale.integration.IntegrationCreator;
-import se.kth.iv1350.pocesSale.integration.ItemRegistry;
-import se.kth.iv1350.pocesSale.integration.Printer;
-import se.kth.iv1350.pocesSale.integration.StoreRegistry;
+import se.kth.iv1350.pocesSale.integration.*;
 import se.kth.iv1350.pocesSale.modell.ItemDescriptionDTO;
+import se.kth.iv1350.pocesSale.modell.PaymentObserver;
 import se.kth.iv1350.pocesSale.modell.Receipt;
 import se.kth.iv1350.pocesSale.modell.Sale;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the aplication's only controller class. All calls to the model pass through here.
@@ -18,6 +18,8 @@ public class Controller {
     private Printer printer;
     private Sale sale;
     private ItemRegistry itemReg;
+    private List<PaymentObserver> paymentObserverList = new ArrayList<>();
+
 
     /**
      * Cuntructor for startup
@@ -53,13 +55,18 @@ public class Controller {
      * @return Sale - Sale object
      */
 
-    public Sale registerItem(int id, int quantity){
-       ItemDescriptionDTO itemInfo = itemReg.getItem(id);
-       System.out.println(quantity);
+    public Sale registerItem(int id, int quantity)throws ItemMissingException, OperationFailedEceptions {
 
-        sale.addItem(itemInfo, quantity);
-        return sale;
+        // skelet för omvandling av databas fel.
+        try {
+            ItemDescriptionDTO itemInfo = itemReg.getItem(id);
+            System.out.println(quantity);
 
+            sale.addItem(itemInfo, quantity);
+            return sale;
+        }catch (ItemRegistryExceptions itemException ){
+            throw new OperationFailedEceptions("Could not read itemRegistry ",itemException);
+        }
     }
 
     /**
@@ -72,10 +79,10 @@ public class Controller {
 
 
     public double pay(double recievedAmount){
+        sale.addPaymentObservers(paymentObserverList);
         Receipt receipt = sale.paid(recievedAmount ,sale);
         printer.printReciept(receipt);
         return receipt.giveMeChange();
-
     }
 
     /**
@@ -88,8 +95,15 @@ public class Controller {
 
     }
 
-
-
+    /**
+     * The specified observer will be notified when a sale has been paid. There will be
+     * notifications only for sales that are started after this method is called.
+     *
+     * @param obs The observer to notify.
+     */
+    public void addPaymentObserver(PaymentObserver obs) {
+        paymentObserverList.add(obs);
+    }
 
 
 }
