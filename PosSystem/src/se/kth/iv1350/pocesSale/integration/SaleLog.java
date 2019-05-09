@@ -41,7 +41,6 @@ public class SaleLog {
 
     private void testLog(Sale record){
         System.out.println(" Detta är en test logg, på hela köpet\n"+record.toString());
-
     }
 
 

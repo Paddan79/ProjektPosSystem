@@ -33,7 +33,7 @@ public class View {
     public View(Controller contr) throws IOException {
         this.contr = contr;
         contr.addPaymentObserver(new TotalRevenueView());
-        this.logger = new LogHandler();
+        this.logger = LogHandler.getLogger();
     }
 
     /**

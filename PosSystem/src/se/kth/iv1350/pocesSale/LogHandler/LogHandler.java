@@ -13,9 +13,25 @@ import java.time.format.FormatStyle;
 public class LogHandler {
     private static final String LOG_FILE_NAME = "POS-log.txt";
     private PrintWriter logFile;
+    private static final LogHandler LOG_HANDLER;
 
-    public LogHandler() throws IOException {
-        logFile = new PrintWriter(new FileWriter(LOG_FILE_NAME), true);
+    static {
+        LogHandler tmp = null;
+        try {
+            tmp = new LogHandler();
+        } catch (IOException e) {
+            tmp.logException(e);
+        }
+        LOG_HANDLER = tmp;
+    }
+
+
+    private LogHandler() throws IOException {
+       logFile = new PrintWriter(new FileWriter(LOG_FILE_NAME), true);
+    }
+
+    public static LogHandler getLogger(){
+        return LOG_HANDLER;
     }
 
     /**
