@@ -19,6 +19,7 @@ public class Controller {
     private Sale sale;
     private ItemRegistry itemReg;
     private List<PaymentObserver> paymentObserverList = new ArrayList<>();
+    private int discountType = 0;
 
 
     /**
@@ -32,7 +33,6 @@ public class Controller {
         this.storeReg = creator.getStoreRegistry();
         this.itemReg = creator.getItemRegistry();
         this.printer = printer;
-
     }
 
     /**
@@ -42,7 +42,7 @@ public class Controller {
 
     public Sale startSale(){
         sale = new Sale(storeReg);
-
+        discountType++;
         return sale;
     }
 
@@ -60,8 +60,6 @@ public class Controller {
         // skelet för omvandling av databas fel.
         try {
             ItemDescriptionDTO itemInfo = itemReg.getItem(id);
-            System.out.println(quantity);
-
             sale.addItem(itemInfo, quantity);
             return sale;
         }catch (ItemRegistryExceptions itemException ){
@@ -92,7 +90,6 @@ public class Controller {
 
     public double giveMeTotal(){
         return sale.giveMeTotal();
-
     }
 
     /**
@@ -104,6 +101,11 @@ public class Controller {
     public void addPaymentObserver(PaymentObserver obs) {
         paymentObserverList.add(obs);
     }
+
+    public double calculateDiscountedPrice(){
+        return sale.calculateNewPrice(sale,discountType);
+    }
+
 
 
 }

@@ -26,7 +26,7 @@ public class View {
     /**
      * Creates a new instance
      *
-     * @param contr The controller taht is used for all operations.
+     * @param contr The controller that is used for all operations.
      *
      */
 
@@ -51,7 +51,6 @@ public class View {
             Sale itemInfo = contr.registerItem(1, 6);
             contr.registerItem(1, 3);
             contr.registerItem(2, 1);
-            System.out.println("Varukorg efter vara 3 \n" + itemInfo);
             contr.registerItem(7, 1);
 
         }
@@ -71,19 +70,20 @@ public class View {
         catch (ItemMissingException exc){
             handleException("Item not found \n" ,exc);
         }
-        System.out.println(contr.giveMeTotal());
+        System.out.println("Belopp före rabatt: " + contr.giveMeTotal());
 
+        System.out.println("Rabbaterat pris: " + contr.calculateDiscountedPrice());
 
         System.out.println("\nDetta presenteras på skärmen (pengar tillbaka till kunden): " + contr.pay(400));
-        System.out.println("Start a new sale!");
+        System.out.println("\n\n\nStart a new sale!");
 
-
+        // test in case a new sale gets paid.
 
         try {
             contr.startSale();
             contr.registerItem(1,2);
             Sale itemInfo2 = contr.registerItem(1, 3);
-            System.out.println("Varukorg efter vara 3 \n" + itemInfo2);
+            System.out.println("Varukorg efter vara 2 \n" + itemInfo2);
         }
         catch (ItemMissingException exc){
             errorMessageHandler.showErrorMsg(exc.getMessage());
@@ -92,7 +92,11 @@ public class View {
             errorMessageHandler.showErrorMsg("Databes failed to work");
         }
 
-        contr.pay(300);
+        System.out.println("Belopp före rabatt: " + contr.giveMeTotal());
+
+        System.out.println("Rabbaterat pris: " + contr.calculateDiscountedPrice());
+
+        System.out.println("\nDetta presenteras på skärmen (pengar tillbaka till kunden): " + contr.pay(300));
 
 
 

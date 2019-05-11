@@ -6,6 +6,8 @@ import se.kth.iv1350.pocesSale.integration.StoreRegistry;
 
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,6 +22,7 @@ public class Sale {
     private List<PaymentObserver> paymentObserverList = new ArrayList<>();
     static final int PROCENT = 100;
     static final int NUMBER_OF_DECIMALS = 100;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
 
 
     LocalDateTime saleDateTime;
@@ -49,12 +52,13 @@ public class Sale {
 
     public Sale(StoreRegistry storeInfo) {
         saleDateTime = LocalDateTime.now();
+
         this.storeName = storeInfo.getStoreName();
         this.storeAdress = storeInfo.getStoreAdress();
         //PrintOut  for Test purposes.
         System.out.println(storeName);
         System.out.println(storeAdress);
-        System.out.println(saleDateTime);
+        System.out.println(saleDateTime.format(formatter));
     }
 
     /**
@@ -154,6 +158,31 @@ public class Sale {
     }
 
     /**
+     * Strategy Pattern on the discount.
+     * @param sale - so that the Totalprice get's the discount
+     * @param discType - just something that shall be given by an external in order to chose what discount that should
+     *                 be applied in each sale or not.
+     * @return - the discounted total price.
+     */
+
+    public double calculateNewPrice(Sale sale, int discType){
+
+        if (discType == 1) {
+            DiscountStrategyPattern discountStrategyPatternBigBuy = new BigBuyDiscount();
+            runningTotal = discountStrategyPatternBigBuy.calculateDiscount(sale, discType);
+
+            return roundToTwoDecimals(runningTotal);
+        }
+        else if(discType == 2){
+            DiscountStrategyPattern discountStrategyPatternItemDiscount = new ItemDiscount();
+            runningTotal = discountStrategyPatternItemDiscount.calculateDiscount(sale,discType);
+            return roundToTwoDecimals(runningTotal);
+        }
+        else
+            return roundToTwoDecimals(runningTotal);
+    }
+
+    /**
      * When the customer have paid
      *
      * @param recivedAmount - amoount of money recieved from the customer
@@ -193,7 +222,6 @@ public class Sale {
      * @param obs The observer to notify.
      */
 
-    // Why we have this is if an observer want to be notified in case the sale changes state.
     public void addPaymentObserver(PaymentObserver obs) {
         paymentObserverList.add(obs);
     }

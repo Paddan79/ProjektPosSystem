@@ -16,13 +16,13 @@ class ErrorMessageHandler {
      */
     void showErrorMsg(String msg) {
         StringBuilder errorMsgBuilder = new StringBuilder();
-        errorMsgBuilder.append(createTime());
+        errorMsgBuilder.append(createTimeStamp());
         errorMsgBuilder.append(", ERROR: ");
         errorMsgBuilder.append(msg);
         System.out.println(errorMsgBuilder);
     }
 
-    private String createTime() {
+    private String createTimeStamp() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
         return now.format(formatter);
