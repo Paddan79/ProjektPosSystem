@@ -1,9 +1,15 @@
-2019-maj-11 11:06:52, Exception was thrown: Could not read itemRegistry 
+2019-maj-13 16:12:13, Exception was thrown: Felaktigt varuid: 7 - Försök igen
+se.kth.iv1350.pocesSale.integration.ItemMissingException: Felaktigt varuid: 7 - Försök igen
+	at se.kth.iv1350.pocesSale.integration.ItemRegistry.getItem(ItemRegistry.java:41)
+	at se.kth.iv1350.pocesSale.controller.Controller.registerItem(Controller.java:62)
+	at se.kth.iv1350.pocesSale.view.View.sampleExecution(View.java:54)
+	at se.kth.iv1350.pocesSale.startupp.Main.main(Main.java:25)
+2019-maj-13 16:12:13, Exception was thrown: Could not read itemRegistry 
 se.kth.iv1350.pocesSale.controller.OperationFailedEceptions: Could not read itemRegistry 
 	at se.kth.iv1350.pocesSale.controller.Controller.registerItem(Controller.java:66)
-	at se.kth.iv1350.pocesSale.view.View.sampleExecution(View.java:65)
-	at se.kth.iv1350.pocesSale.startupp.Main.main(Main.java:27)
+	at se.kth.iv1350.pocesSale.view.View.sampleExecution(View.java:66)
+	at se.kth.iv1350.pocesSale.startupp.Main.main(Main.java:25)
 Caused by: se.kth.iv1350.pocesSale.integration.ItemRegistryExceptions: When registerd item id 99 database crashed
-	at se.kth.iv1350.pocesSale.integration.ItemRegistry.getItem(ItemRegistry.java:39)
+	at se.kth.iv1350.pocesSale.integration.ItemRegistry.getItem(ItemRegistry.java:38)
 	at se.kth.iv1350.pocesSale.controller.Controller.registerItem(Controller.java:62)
 	... 2 more

@@ -21,7 +21,6 @@ public class ItemRegistry {
      */
 
     public ItemRegistry(){
-
     }
 
     public ItemDescriptionDTO getItem(int id) throws ItemMissingException{

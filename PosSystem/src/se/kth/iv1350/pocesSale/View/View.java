@@ -68,7 +68,7 @@ public class View {
             handleException("Correct: Databes failed to work",exc);
         }
         catch (ItemMissingException exc){
-            handleException("Item not found \n" ,exc);
+            errorMessageHandler.showErrorMsg("Item not found " +exc.getMessage()+ "\n");
         }
         System.out.println("Belopp före rabatt: " + contr.giveMeTotal());
 

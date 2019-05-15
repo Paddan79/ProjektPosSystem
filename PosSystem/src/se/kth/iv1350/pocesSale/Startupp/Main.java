@@ -19,8 +19,6 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-
-
             IntegrationCreator creator = new IntegrationCreator();
             Printer printer = new Printer();
             Controller controller = new Controller(creator, printer);

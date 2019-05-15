@@ -57,7 +57,7 @@ public class Controller {
 
     public Sale registerItem(int id, int quantity)throws ItemMissingException, OperationFailedEceptions {
 
-        // skelet för omvandling av databas fel.
+        // skelett för omvandling av databas fel.
         try {
             ItemDescriptionDTO itemInfo = itemReg.getItem(id);
             sale.addItem(itemInfo, quantity);
